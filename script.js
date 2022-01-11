@@ -108,7 +108,6 @@ const deleteJSON = function (url) {
   });
 };
 
-
 class TodoList {
   constructor(el) {
     this.el = el;
@@ -150,16 +149,16 @@ class TodoList {
     }
   }
 
-  async changeTodoStatus(id) {
+  async changeStatus(id) {
     try {
       let data = await this.getData();
 
       for (let el of data) {
         if (el.id == id) {
           el.complited = !el.complited;
-          let todoToChangeStatus = document.querySelector(`[data-id="${id}"]`);
+          let changeStatus = document.querySelector(`[data-id="${id}"]`);
 
-          this.changeTodoColor(todoToChangeStatus);
+          this.changeTodoColor(changeStatus);
 
           putJSON(`${requestURL}/${id}`, {
             task: el.task,
@@ -205,7 +204,7 @@ list.addEventListener('click', (event) => {
   let target = event.target;
   let id = target.parentNode.dataset.id;
   if (target.classList.contains('set-status')) {
-    createLi.changeTodoStatus(id);
+    createLi.changeStatus(id);
   } else if (target.classList.contains('delete-task')) {
     createLi.removeTodo(id);
   }
